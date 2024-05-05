@@ -3,54 +3,70 @@
 
 using namespace std;
 
-int maiorNumero(int v[], int tamanho);
-int somaXNumeros(int v[], int x);
-int fatorial(int x);
+int MaiorNumero(int v[]);
+int Soma(int v[], int x);
+int Fatorial(int x);
 int mdc(int a, int b);
-int* numerosPrimos(int x);
-void fibonacci(int x);
-int binToDec(int x);
+int* NumerosPrimos(int x);
+void Fibonacci(int x);
+void BinToDec(int x);
+void DecToBin(int x);
+void FatoracaoNumerosPrimos(int x);
 
-int main(){
-    int meuArray[] = {1,3,5,7,9,11,13,15,17,19};
-    int arrayAux[] = {4,5,10,12,10011011};
-    int tamanho = sizeof(meuArray) / sizeof(meuArray[0]);
+int main() {
+    int meuArray[] = {200,1,3,5,7,9,11,13,15,17,19};
 
-    cout << "- Maior numero: " << maiorNumero(meuArray, tamanho) << endl;
-    cout << "- Soma de " << arrayAux[1] << " numeros: " << somaXNumeros(meuArray, arrayAux[1]) << endl;
-	cout << "- Fatorial de " << arrayAux[1] <<": " << fatorial(arrayAux[1]) << endl;
-	cout << "- MDC de " << arrayAux[0] << " e " << arrayAux[3] << ": " << mdc(arrayAux[0],arrayAux[3]) << endl;
+    // Retorna o maior numero em um vetor
+    cout << "- Maior numero: " << MaiorNumero(meuArray) << endl;
+    
+    // Retorna a soma dos x de um vetor
+    cout << "- Soma de 5 numeros: " << Soma(meuArray, 5) << endl;
+    
+    // Retorna o valor do fatorial de x numeros
+	cout << "- Fatorial de 6 " << Fatorial(6) << endl;
 	
-    int* primos = numerosPrimos(arrayAux[2]);
-    cout << "- Os " << arrayAux[2] << " primeiros números primos: ";
-    for(int i = 0; i < arrayAux[2]; ++i) {
-        cout << primos[i] << ", ";
+	// Retorna o MDC de dois numeros
+	cout << "- MDC de 10 e 12: " << mdc(10,12) << endl;
+	
+	// Retorna os x numeros primos
+    int* primos = NumerosPrimos(7);
+    cout << "- Os 7 primeiros números primos: ";
+    for(int i = 0; i < 7; ++i) {
+        cout << primos[i];
+        if(i != 6){
+            cout << ", ";
+        }
     }
     cout << endl;
     delete[] primos;
 
-    cout << "- ";
-    fibonacci(arrayAux[2]);
-    cout << endl;
-
-    cout << "- O binário " << arrayAux[4] << " em decimal: " << binToDec(arrayAux[4]) << endl;
-
-
-
+    // Imprime os x numeros da sequencia de Fibonacci
+    Fibonacci(8);
+    
+    // Converte e imprime um numero binario para decimal
+    BinToDec(10011011);
+    
+    // Converte e imprime um numero decimal para binario
+    DecToBin(155);
+    
+    // Decomposicao de um numero em fatores primos
+    FatoracaoNumerosPrimos(60);
+   
     return 0;
 }
 
-int maiorNumero(int v[], int tamanho){
-    int x = 0;
-    for(int i = 0; i < tamanho; i++){
-        if(x < v[i]){
+int MaiorNumero(int v[]){
+    int x = 0, i = 0;
+    while(v[i] != '\0'){
+       if(x < v[i]){
             x = v[i];
         }
+        i++;
     }
     return x;
 }
 
-int somaXNumeros(int v[], int x){
+int Soma(int v[], int x){
     int soma = 0;
     for(int i = 0; i < x; i++){
         soma = soma + v[i];
@@ -58,11 +74,11 @@ int somaXNumeros(int v[], int x){
     return soma;
 }
 
-int fatorial(int x){
+int Fatorial(int x){
     if(x == 1) {
 		return 1;
 	}
-	return x * fatorial(x - 1);
+	return x * Fatorial(x - 1);
 }
 
 int mdc(int a, int b){
@@ -75,7 +91,7 @@ int mdc(int a, int b){
 	return temp;
 }
 
-int* numerosPrimos(int x) {
+int* NumerosPrimos(int x) {
     int* primos = new int[x];
     int n = 2;
     bool ehPrimo = true;
@@ -97,22 +113,25 @@ int* numerosPrimos(int x) {
     return primos;
 }
 
-void fibonacci(int x){
+void Fibonacci(int x){
     int ultimo = 1;
     int penultimo = 1;
     int atual = 0;
-    cout << "Sequência de Fibonacci dos " << x << " primeiros numeros: " << penultimo << ", " << ultimo;
+    cout << "- Sequencia de Fibonacci dos " << x << " primeiros numeros: " << penultimo << ", " << ultimo;
     for(int i = 0; i < x - 2; i++){
         atual = penultimo + ultimo;
         ultimo = penultimo;
         penultimo = atual;
         cout << ", " << atual;
     }
+    cout << endl;
 }
 
-int binToDec(int x){
+void BinToDec(int x){
     int decimal = 0;
     int potencia = 1;
+
+    cout << "- O binario " << x << " em decimal: ";
 
     while(x != 0){
         int digito = x % 10;
@@ -120,10 +139,41 @@ int binToDec(int x){
         potencia *= 2;
         x /= 10;
     }
-
-    return decimal;
+    
+    cout << decimal << endl;
 }
 
-int decToBin(int x){
+void DecToBin(int x){
+    int bin[100], i = 0;
     
+    cout << "- O decimal " << x << " em binario: ";
+    
+    while (x > 0) {
+        bin[i] = x % 2;
+        x /= 2;
+        i++;
+    }
+    
+    for(int j = i - 1; j >= 0; j--){
+        cout << bin[j];
+    }
+    
+    cout << endl;
+}
+
+void FatoracaoNumerosPrimos(int x){
+    int num = 2;
+    
+    cout << "- A decomposicao de " << x << " em fatores primos é: ";
+    
+    while(x > 1){
+        if(x % num == 0){
+            cout << num << ", ";
+            x /= num;
+            num = 2;
+        }
+        else{
+            num++;
+        }
+    }
 }
