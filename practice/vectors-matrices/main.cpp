@@ -7,7 +7,7 @@ void Reverso(char s[]);
 void Anagrama(char s1[], char s2[]);
 void CopiaStrs(char s1[], char s2[]);
 void Concatenar(char s1[], char s2[]);
-void Palindromo(char s[], char w[]);
+void Palindromo(char s1[], char s2[]);
 
 int main() {
     char v[] = {'v','a','s','c','o','\0'};
@@ -19,8 +19,8 @@ int main() {
     Reverso(v);
     Anagrama(v, w);
     CopiaStrs(v, x);
-    Concatenar(v,y);
     Palindromo(v,z);
+    Concatenar(v,y);
 
     return 0;
 }
