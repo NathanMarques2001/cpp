@@ -3,11 +3,16 @@
 
 using namespace std;
 
+const int MAX_COLUNAS = 100;
+
 void Reverso(char s[]);
 void Anagrama(char s1[], char s2[]);
 void CopiaStrs(char s1[], char s2[]);
 void Concatenar(char s1[], char s2[]);
 void Palindromo(char s1[], char s2[]);
+void MatrizTransposta(int m[][MAX_COLUNAS]);
+void MatrizIdentidade(int m[][MAX_COLUNAS]);
+void SomaDiagonais(int m[][MAX_COLUNAS]);
 
 int main() {
     char v[] = {'v','a','s','c','o','\0'};
@@ -15,12 +20,19 @@ int main() {
     char x[] = {'\0'};
     char y[] = {'e','h','s','e','l','e','c','a','o','\0'};
     char z[] =  {'o','c','s','a','v','\0'};
+    int matriz[][MAX_COLUNAS] = {{1, 0, 0, -1},
+                                {0, 1, 0, -1},
+                                {0, 0, 1, -1},
+                                {-1, -1, -1, -1}};
     
     Reverso(v);
     Anagrama(v, w);
     CopiaStrs(v, x);
     Palindromo(v,z);
     Concatenar(v,y);
+    MatrizTransposta(matriz);
+    MatrizIdentidade(matriz);
+    SomaDiagonais(matriz);
 
     return 0;
 }
@@ -127,4 +139,47 @@ void Palindromo(char s1[], char s2[]){
     } else {
         cout << "Nao eh palindromo" << endl;
     }
+}
+
+void MatrizTransposta(int m[][MAX_COLUNAS]) {
+    for (int i = 0; m[i][0] != -1; ++i) {
+        for (int j = 0; m[i][j] != -1; ++j) {
+            cout << m[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
+void MatrizIdentidade(int m[][MAX_COLUNAS]) {
+    bool ehMatrizIdentidade = true;
+    for (int i = 1; m[i][0] != -1; ++i) {
+        if(m[i][i] != m[i - 1][i - 1]) {
+            ehMatrizIdentidade = false;
+        }
+    }
+    
+    if(ehMatrizIdentidade) {
+        cout << "Eh Matriz Identidade!" << endl;
+    } else {
+        cout << "Nao eh Matriz Identidade!" << endl;
+    }
+}
+
+void SomaDiagonais(int m[][MAX_COLUNAS]) {
+    int principal = 0, secundaria = 0, colunas = 0;
+    
+    for (int i = 0; m[i][0] != -1; ++i) {
+        principal += m[i][i];
+    }
+    
+    while(m[colunas][0] != -1){
+        colunas++;
+    }
+    
+    for (int i = 0; i < colunas; i++) {
+        secundaria += m[i][colunas - i - 1];
+    }
+    
+    cout << "Principal: " << principal << endl;
+    cout << "Secundaria: " << secundaria << endl;
 }
