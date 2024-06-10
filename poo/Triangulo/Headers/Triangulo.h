@@ -18,9 +18,10 @@ class Triangulo{
 		void setLado2(float);
 		float getLado3();
 		void setLado3(float);
-		static int getQuantidade();
-		static void setQuantidade(float);
+		int getQuantidade();
+		void setQuantidade(int);
 		float perimetro();
 		float area();
+		bool isValido();
 };
 #endif
